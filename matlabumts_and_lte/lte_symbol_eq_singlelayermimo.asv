@@ -1,0 +1,49 @@
+function eq_kv = lte_symbol_eq_singlelayermimo( kvector, kvest0, kvest1, NDLRB, ncellid, l, ns, ncp, codebook )
+%Very simple equalisation 2x2 only
+%   Detailed explanation goes here
+
+
+    %TX 1 transmit V, TX2 transmit V - total power is V^2 + V^2
+    % receiver receives (2V) due to superposition. That means 4V^2 power.
+    % that cant be right. Must be some weird S parameter theory here
+    
+    % let's assume the universe conserves energy... 
+    
+    % therefore the universe 'conspires' thru S parameter theory to make it
+    % such that the power received is 2V^2. Therefore, the total voltage
+    % received must be sqrt(2)V. Therefore the individual contributions of
+    % voltage must be sqrt(2)/2 * V.
+    
+    %therefore it can be assumed that the universe scales the TX voltage by
+    %sqrt(2)/2. But only when 2x TX antennas are transmitting.
+    
+    % but, remember, the reference signals aren't scaled because they
+    % are transmitted in independent resources
+    
+    %ignoring PDSCH RE to CSRS RE ratio - i.e. assuming that equals 1
+    
+    % The transmitted signal looks like the following because the power is
+    % scaled at the transmitter. Let's assume codebook (1;1) for simplicity
+    
+    % lets also assume perfect channel
+    
+    % TX(V)(Ant1) = S * 1 * 1/sqrt(2) * 1
+    % TX(V)(Ant2) = S * 1 * 1/sqrt(2) * 1 
+    
+    %now, the universe will scale this to
+    
+    % TX(V)(Ant1) = S * 1 * 1/sqrt(2) * sqrt(2)/2 = S/2
+    % TX(V)(Ant2) = S * 1 * 1/sqrt(2) * sqrt(2)/2 = S/2
+    
+    % hence, the received signal will have received voltage = S
+    
+    
+
+
+    eq_kv = kvector ./ (codebook(1) * kvest0 + codebook(2) * kvest1);
+
+end
+
+
+
+

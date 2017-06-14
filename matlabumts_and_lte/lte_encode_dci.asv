@@ -1,0 +1,12 @@
+
+function dciout = lte_encode_dci( dci, numCCE)
+
+  [d0 d1 d2 ] = lte_tailbite_enc(dci);
+  
+  dci_size_bits = numCCE * 9 * 4 * 2; % 9 REGs per CCE, 4 QPSK carriers per CCE, 2 bits of QPSK
+  
+  dcicoded = 
+  
+  dciout = lte_conv_ratematch(dcicoded, dci_size_bits);
+  
+end

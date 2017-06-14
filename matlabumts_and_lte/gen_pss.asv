@@ -1,0 +1,8 @@
+function seq = gen_pss(u  )
+
+    seq = zeros(1,62)
+    
+    seq(1:31) = exp(-j*pi*u*(0:30)
+    
+end
+

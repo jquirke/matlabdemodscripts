@@ -1,0 +1,45 @@
+bandwidth=5
+n_id_cell=298
+fs=30.72
+freq_band=3
+cell_id=88776655
+tracking_area_code=11
+sib3_present=1
+mcc=505
+mnc=77
+n_frames=10
+percent_load=65
+
+
+
+bandwidth=5
+n_id_cell=298
+fs=30.72
+freq_band=3
+cell_id=88776655
+tracking_area_code=11
+sib3_present=1
+mcc=505
+mnc=77
+n_frames=10
+percent_load=65
+
+
+other notes: there is a strong GSM carrier at 938.6M = ARFCN 18
+strong GSM1800 carrier at 1876-0.8 = 1875.2M = ARFCN 862
+
+
+bandwidth=3
+n_id_cell=298
+fs=3.84
+freq_band=5
+cell_id=88776655
+tracking_area_code=11
+sib3_present=1
+mcc=505
+mnc=77
+n_frames=1024
+
+
+use trimdac 33750
+

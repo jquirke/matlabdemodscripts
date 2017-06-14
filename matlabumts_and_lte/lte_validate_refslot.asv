@@ -1,0 +1,17 @@
+function lte_cell_id_ = lte_validate_refslot( slotdata, l, ns, ncp, max_antennas)
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+
+    fftsize = length(slotdata);
+    cellid_corr = zeros(1,504);
+    slot_kv = lte_fft_to_kvector(fftsize, fft(slotdata));
+    
+    for i=0:503
+        test_kv = lte_refsig_to_kvector(i, l, ns, ncp, 0);
+        
+    end
+    lte_cell_id = 0;
+    
+    
+end
+

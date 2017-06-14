@@ -1,0 +1,29 @@
+function estimate_kvs = lte_linear_est_slot( kvector, ncellid, ns, ncp,  num_antennas )
+%no interpolation of symbols, just copy for now
+
+    if (ncp == 1) 
+        num_symbols = 7;
+        ant01_2nd_ref_symbol = 4;
+    else
+        num_symbols = 6;
+        ant01_2nd_ref_symbol = 3;
+    end
+
+    estimate_kvs = zeros(num_antennas, num_symbols, 110*12);
+
+    for antenna = 0:num_antennas - 1,
+        for symbol=0:num_symbols - 1,
+            if (antenna <= 1)
+                if (symbol < ant01_2nd_ref_symbol)
+                    
+                else
+                    
+                end 
+            else
+                estimate_kvs(antenna+1, symbol+1, 
+            end
+        end
+    end
+    
+end
+

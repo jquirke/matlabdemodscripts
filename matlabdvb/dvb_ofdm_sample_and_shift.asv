@@ -1,0 +1,10 @@
+function carriersout = dvb_ofdm_sample_and_shift(samples, tu, tcp, dvb_num_active_carriers, dc_offset)
+
+    frame_nocp = samples(tcp+1:tu+tcp);
+    spectrum = fftshift(fft(frame_nocp));
+    kminmax = (dvb_num_active_carriers
+    carriersout = spectrum(
+
+
+end
+

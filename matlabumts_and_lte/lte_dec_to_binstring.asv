@@ -1,0 +1,8 @@
+function bitstring = lte_dec_to_binstring( dec )
+
+    powers = fliplr(2.^(0:floor(log2(dec))));
+    
+    bitstring = mod(floor(dec/powers, 2)
+
+end
+

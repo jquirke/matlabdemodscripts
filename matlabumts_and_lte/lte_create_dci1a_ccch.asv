@@ -1,0 +1,40 @@
+
+function dci = lte_create_dci1a_ccch( NDLRB, start, length, rnti, mcs, harq, rv, n1aprb, tpc )
+
+    SI_RNTI = 65535;
+    P_RNTI = 65534;
+
+    dci = [1]; % DCI1A format
+ 
+    dci = [dci 0]; %localized only support
+    
+    Nresourcebits = ceil(log2(NDLRB*(NDLRB+1)/2));
+    
+    if ( (length - 1) <= floor(NDLRB/2))
+        RIV = NDLRB * (length - 1) + start;
+    else
+        RIV = NDLRB * (NDLRB - length + 1) + (NDLRB - 1 - start);
+    end
+    
+    dci = [dci lte_dec_to_binstring(RIV, Nresourcebits)]; %resource
+    dci = [dci lte_dec_to_binstring(mcs, 5)];
+    dci = [dci lte_dec_to_binstring(harq, 3)];
+    dci = [dci 0]; %ngap alloc bit for RA/P/SI-RNTI - not used for localised
+    dci = [dci lte_dec_to_binstring(rv, 2)];
+    
+    if (rnti == SI_RNTI || rnti == P_RNTI) 
+        dci = [dci lte_dec_to_binstring(n1aprb, 1) 0]; %1 bit for column, reserved
+    else
+        dci = [dci lte_dec_to_binstring(tpc, 2)]; %TPC cmd
+    end
+    
+    ambig_size_table = [12, 14, 16 ,20, 24, 26, 32, 40, 44, 56];
+    
+    if (find (length(dci) == ambig_size_table) > 0)
+        dci = [dci 0]; % 0 pad to avoid ambiguity
+    end
+    
+    %attach CRC
+    
+    
+end

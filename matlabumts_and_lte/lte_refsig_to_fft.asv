@@ -1,0 +1,38 @@
+function fftv = lte_regsif_to_fft(ncellid, fftsize, l, ns, ncp, antenna )
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+
+    fftfull = zeros(1,2048)
+    
+    ref_sig = lte_refsig(ncellid, l, ns,ncp);
+    
+    if (antenna == 0 && l == 0)
+        v = 0;
+    elseif (antenna == 0 && l ~= 0)
+        v = 3;
+    elseif (antenna == 1 && l  == 0)
+        v = 3;
+    elseif (antenna == 1 && l ~= 0)
+        v = 0;
+    elseif (antenna == 2)
+        v = 3 * mod(ns,2);
+    elseif (antenna == 3)
+        v = 3 + 3 * mod(ns,2);
+    end
+    
+    vshift = mod(ncellid,6);
+    
+    koffset = mod(v+vshift,6)
+    
+    %full FFT
+    fftfull(2+koffset:6:110*6+koffset) = ref_sig(111:220);
+    fftfull(2048-109*6-5+koffset:6:2048-5+koffset) = ref_sig(1:110);
+    
+    %truncate FFT
+    
+    fftv = zeros(1,fftsize);
+    fftv(1:fftsize/2) = fftfull(1:fftsize/2);
+    fftv(fftsize/2+1:end) = fftfull(end-fftsize/2+1:end);
+    
+end
+

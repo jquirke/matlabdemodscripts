@@ -1,0 +1,54 @@
+function demapped = dvb_test_hard_qpsk_demap(symbol)
+
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+
+
+    points = [  3+3j 3+1j 1+3j 1+1j ...
+                3-3j 3-1j 1-3j 1-1j ...
+                -3+3j 
+    coords(1) = struct('bits', [0 0 0 0], 'point', 3+3j); 
+    coords(2) = struct('bits', [0 0 0 1], 'point', 3+1j); 
+    coords(3) = struct('bits', [0 0 1 0], 'point', 1+3j); 
+    coords(4) = struct('bits', [0 0 1 1], 'point', 1+1j);
+    
+    coords(5) = struct('bits', [0 1 0 0], 'point', 3-3j); 
+    coords(6) = struct('bits', [0 1 0 1], 'point', 3-1j); 
+    coords(7) = struct('bits', [0 1 1 0], 'point', 1-3j); 
+    coords(8) = struct('bits', [0 1 1 1], 'point', 1-1j); 
+    
+    coords(9) = struct('bits', [1 0 0 0], 'point', -3+3j); 
+    coords(10) = struct('bits', [1 0 0 1], 'point', -3+1j); 
+    coords(11) = struct('bits', [1 0 1 0], 'point', -1+3j); 
+    coords(12) = struct('bits', [1 0 1 1], 'point', -1+1j); 
+    
+    coords(13) = struct('bits', [1 1 0 0], 'point', -3-3j); 
+    coords(14) = struct('bits', [1 1 0 1], 'point', -3-1j);
+    coords(15) = struct('bits', [1 1 1 0], 'point', -3-1j);
+	coords(16) = struct('bits', [1 1 1 1], 'point', -1-1j);
+    
+    pwrsum = 0;
+    for i=1:length(coords)
+        pwrsum(i) =coords(i).point;
+    end
+    
+    
+    
+    for carrier = 1:length(symbol)
+        
+        best = +inf;
+        bestidx = -1;
+        
+        for qam = 1:length(coords)
+            if ( abs(symbol(carrier) - coords(qam).point/sqrt(10)) < best)
+                best = abs(symbol(carrier) - coords(qam).point);
+                bestidx = qam;
+            end
+        end
+        demapped(carrier,:) = coords(bestidx).bits;
+    end
+
+
+    
+end
+

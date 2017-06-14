@@ -1,0 +1,22 @@
+raw = [randint(1,148,2) ones(1, 9)];
+
+diffenc = zeros(1,length(raw));
+diffenc(1) = 1-raw(1); %pre-state are 11111s
+for (i=2:length(raw))
+    diffenc(i) = mod(raw(i-1)+raw(i),2);
+end
+
+
+modulated_from_diff(1) = 2*diffenc(1) - 1;
+prevval = modulated_from_diff(1);
+for (i=2:length(diffenc))
+    if (diffenc(i) == 1)
+        modulated_from_diff(i) = prevval * (0+j);
+    else
+        modulated_from_diff(i) = prevval * (0-j);
+    end
+    prevval = modulated_from_diff(i);
+end
+
+
+modulated_from_raw(

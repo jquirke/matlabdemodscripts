@@ -1,0 +1,14 @@
+function seqtd = gen_pss_td(u)
+
+    freq_seq = gen_pss(u);
+    
+    carriers = zeros(1,256);%for the 3.84Mhz clock case
+    
+    carriers(2:(2+31)) = freq_seq(32:62);
+    
+    carriers(end-31:end) = freq_
+    
+    seqtd = freq_seq;
+    
+end
+

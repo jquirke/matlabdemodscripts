@@ -1,0 +1,7 @@
+function [outdata outstate] = enhanced_resample(indata, P, Q, instate)
+
+    [discard filter] = resample(
+    upsamp = upsample(indata, P);
+    filtered = filter(B,A,
+    
+end

@@ -1,0 +1,14 @@
+function phich_indices = lte_phich_indices( NDLRB, ncellid, pcfich_indices, ncp, phich_config_ng, phich_extended)
+%return the k-offset relative to the NDLRB of the start of each PCFICH REG,
+%in order of mapping
+    
+   if (ncp == 1)
+       ngroup = ceil(phich_config_ng * NDLRB
+   
+   kprime = (12/2) * mod(ncellid, 2*NDLRB);
+   
+   pcfich_kindices = mod(pcfich_kindices + kprime, NDLRB*12);
+   
+   
+end
+
