@@ -7,11 +7,10 @@ function eq_kvectors = lte_slot_equalise_txd_partial(eq_kvectors_input, inputkve
     
     for symbol = [symbol_list]
         
-        antenna0 = reshape(est_kvectors(0+1, symbol+1,:), 1, 110*12);
-        antenna1 = reshape(est_kvectors(1+1, symbol+1,:), 1, 110*12);        
+        antenna_estimates = squeeze(est_kvectors(:, symbol+1,:));       
         
         eq_kvectors(symbol+1, :) = lte_symbol_eq(inputkvectors(symbol+1, :), ...
-            antenna0, antenna1,NDLRB, ncellid, symbol, ns, ncp);
+            antenna_estimates,NDLRB, ncellid, symbol, ns, ncp);
         
     end
 

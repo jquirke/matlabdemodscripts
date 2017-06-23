@@ -3,9 +3,9 @@ fprintf(1,'Loading samples...\n');
 %telstra-umts5-4436-MG.usrp
 %vodafone-4363-CH-0706.usrp PSC=2
 fname = 'C:\\temp\\lte\\2017\\optusch2300_1\\lte.bin';
-fname = 'C:\\temp\\lte\\2017\\telstrach700\\clean\\lte.bin';
+fname = 'C:\\temp\\lte\\2017\\optusch1800_4way\\lte1800_4way.bin';
 
-f=fopen(fname, 'rb'); fseek(f, 0.6*(30.72e6 * (2*2)), 'bof');v=fread(f, 0.2*30.72e6*(2), 'int16'); cv_usrp=v(1:2:end)+v(2:2:end)*j; fclose(f);
+f=fopen(fname, 'rb'); fseek(f, 0.8*(30.72e6 * (2*2)), 'bof');v=fread(f, 0.2*30.72e6*(2), 'int16'); cv_usrp=v(1:2:end)+v(2:2:end)*j; fclose(f);
 %f=fopen('C:\\temp\\test.lte', 'rb');v=fread(f, inf, 'int16'); cv_usrp=v(1:2:end)+v(2:2:end)*j; fclose(f);
 
 cv_usrp = cv_usrp.';
@@ -96,7 +96,7 @@ ncellid = 278 %vodafone seperation street 850
 
 %ncellid = 413 %richmond l1800
 ncellid = 260;
-ncellid = 221;
+ncellid = 260;
 
 
 

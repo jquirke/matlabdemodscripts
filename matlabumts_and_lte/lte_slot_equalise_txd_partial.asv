@@ -1,0 +1,44 @@
+function eq_kvectors = lte_slot_equalise_txd_partial(eq_kvectors_input, inputkvectors, est_kvectors,NDLRB, ncellid, ns, ncp, symbol_list )
+%Very simple equalisation 2x2 only
+%   Detailed explanation goes here
+
+
+    eq_kvectors = eq_kvectors_input;
+    num_antennas = size(est_kvectors,1);
+    
+    if (num_antennas == 4)
+       %compute the indexes
+       %every even pair is just alamouti coded with antenna 0 +2, every odd
+       %pair with antenna 1+#
+       even_pair_indexes = sort([[0:110*12/4-1]*4+1 [0:110*12/4-1]*4+2]);
+       odd_pair_indexes = sort([[0:110*12/4-1]*4+3 [0:110*12/4-1]*4+4]);
+    end
+    
+    for symbol = [symbol_list]
+        
+        if (num_antennas <= 2)
+            virtual_antenna0 = reshape(est_kvectors(0+1, symbol+1,:), 1, 110*12);
+            virtual_antenna1 = reshape(est_kvectors(1+1, symbol+1,:), 1, 110*12);        
+        else
+            % 4 antennas, collapse into 2 as only 2 every transmitting at
+            % one time
+            phys_antenna0 = reshape(est_kvectors(0+1, symbol+1,:), 1, 110*12);
+            phys_antenna1 = reshape(est_kvectors(1+1, symbol+1,:), 1, 110*12);
+            phys_antenna2 = reshape(est_kvectors(2+1, symbol+1,:), 1, 110*12);
+            phys_antenna3 = reshape(est_kvectors(3+1, symbol+1,:), 1, 110*12);
+            
+            virtual_antenna0 = zeros(1,110*10);
+            virtual_antenna1 = zeros(1,110*10);
+            virtual_antenna0(even_pair_indexes) = phys_antenna0(even_pair_indexes);
+            virtual_antenna0(odd_pair_indexes) = phys_antenna1(odd_pair_indexes);
+            virtual_antenna1(even_pair_indexes) = phys_antenna2(even_pair_indexes);
+            virtual_antenna2(odd_pair_indexes) = phys_antenna3(odd_pair_indexes);
+            
+        end
+                       
+        eq_kvectors(symbol+1, :) = lte_symbol_eq(inputkvectors(symbol+1, :), ...
+            virtual_antenna0, virtual_antenna1,NDLRB, ncellid, symbol, ns, ncp);
+        
+    end
+
+end

@@ -45,9 +45,11 @@ function [NewRNTIS] = lte_process_radio_frame(framesamples, fftsize, ncellid, nc
     pbch_kvs = lte_slot_to_kvectors(fftsize,pbchslotsamples,ncp);
     
     pbch_found = 0;
-    for antenna_config = [ 1 2 ], %just 2 for now
+    for antenna_config = [ 1 2 3 ], %just 2 for now
         %have to use NDLRB estimate of 100 here
         pbch_est = lte_linear_est_slot(100,pbch_kvs,ncellid,1,ncp,antenna_config_to_num_antennas(antenna_config));
+        %debug estimator
+        figure(4);plot(abs(squeeze(pbch_est(:,1,:)))')
         pbch_eq = lte_slot_equalise(pbch_kvs, pbch_est,6, ncellid,1,ncp);
         pbch_syms = lte_pbch_extract(pbch_eq,ncellid,ncp);
         figure(3)
